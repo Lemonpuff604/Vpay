@@ -66,7 +66,7 @@
     .btn-ghost:hover{background:#fff; border-color: rgba(26,92,255,.25); transform: translateY(-2px); box-shadow: var(--shadow);}
     .pill{
       display:inline-flex; align-items:center; gap:10px;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
@@ -74,8 +74,15 @@
       background: var(--mint);
       color: #065f46;
       border: 1px solid rgba(0,184,122,.25);
+      box-shadow: 0 2px 12px rgba(0,184,122,.15);
     }
-    .pill .dot{width:7px;height:7px;border-radius:50%; background: var(--mint-dark);}
+    .pill .dot{
+      width:7px;height:7px;border-radius:50%;
+      background: var(--mint-dark);
+      box-shadow: 0 0 0 3px rgba(0,184,122,.20);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 3px rgba(0,184,122,.20)}50%{box-shadow:0 0 0 5px rgba(0,184,122,.10)}}
 
     /* NAV */
     nav{
@@ -120,13 +127,13 @@
 
     /* HERO */
     .hero{
-      padding: 44px 0 34px;
+      padding: 52px 0 44px;
     }
     .hero-grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap: 34px;
-      align-items:center;
+      gap: 40px;
+      align-items:start;
     }
     h1{
       font-family: 'Playfair Display', serif;
@@ -169,40 +176,50 @@
     }
     .hero-actions{margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;}
     .microtrust{
-      margin-top: 14px;
-      display:flex; gap:18px; flex-wrap:wrap;
+      margin-top: 16px;
+      display:flex; gap:10px; flex-wrap:wrap;
       color: var(--muted-2);
       font-size: 12px;
       font-weight: 500;
       align-items:center;
     }
-    .microtrust span{display:inline-flex; align-items:center; gap:8px;}
+    .microtrust span{
+      display:inline-flex; align-items:center; gap:7px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid var(--border);
+    }
     .microtrust b{color: var(--navy); font-weight: 700;}
 
-    /* HERO VISUAL (Dribbble-like) */
+    /* HERO VISUAL */
     .hero-visual{
-      position:relative;
-      height: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
     .panel{
-      position:absolute;
       border-radius: var(--radius-xl);
       background: rgba(255,255,255,.78);
       border: 1px solid rgba(13,31,60,.10);
       box-shadow: var(--shadow);
-      overflow:hidden;
+      overflow: hidden;
+      position: relative;
     }
     .panel.main{
-      inset: 0 0 48px 0;
       background: linear-gradient(135deg, rgba(13,31,60,.96), rgba(22,40,71,.96));
       border: none;
-      box-shadow: 0 22px 70px rgba(13,31,60,.25);
+      box-shadow: 0 28px 80px rgba(13,31,60,.28);
     }
     .panel.main .inner{
-      padding: 24px 24px 18px;
+      padding: 26px 26px 22px;
       color: #fff;
-      position:relative;
-      height: 100%;
+      position: relative;
+    }
+    .hero-panels-row{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
     .panel.main .glow{
       position:absolute; inset:-40% -40% auto auto;
@@ -281,12 +298,10 @@
     .mini.blue .v{color: #cfe0ff;}
 
     .panel.floating{
-      width: 270px;
-      right: -10px;
-      top: 70px;
       padding: 14px;
       border-radius: 22px;
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
       animation: float 4.5s ease-in-out infinite;
     }
     .float-head{
@@ -324,12 +339,10 @@
     .amt{margin-left:auto; font-weight: 800; color: var(--mint-dark); font-size: 12px;}
 
     .panel.floating2{
-      width: 260px;
-      left: -10px;
-      bottom: 0;
       padding: 14px;
       border-radius: 22px;
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
       animation: float 4.5s 1.2s ease-in-out infinite;
     }
     .spark{
@@ -756,15 +769,16 @@
     .menu-btn{display:none;}
     @media (max-width: 920px){
       .hero-grid{grid-template-columns: 1fr; }
-      .hero-visual{height: 460px;}
-      .panel.floating{right: 0; top: 40px;}
-      .panel.floating2{left: 0;}
+      .hero-panels-row{grid-template-columns: 1fr 1fr;}
       .two{grid-template-columns: 1fr;}
       .steps{grid-template-columns: 1fr;}
       .feature, .feature:nth-child(even){grid-template-columns: 1fr;}
       .industries{grid-template-columns: 1fr;}
       .nav-links{display:none;}
       .menu-btn{display:inline-flex;}
+    }
+    @media (max-width: 560px){
+      .hero-panels-row{grid-template-columns: 1fr;}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -916,60 +930,62 @@
                 </div>
               </div>
 
-              <div style="position:absolute; left:24px; right:24px; bottom:18px; display:flex; justify-content:space-between; gap:10px; opacity:.92;">
-                <div style="font-size:11px; color:rgba(255,255,255,.65);">Realtime events</div>
-                <div style="font-size:11px; color:rgba(255,255,255,.65);">Card-ready via partners</div>
+              <div style="margin-top:16px; display:flex; justify-content:space-between; gap:10px; opacity:.85; padding-top:12px; border-top:1px solid rgba(255,255,255,.10);">
+                <div style="font-size:11px; color:rgba(255,255,255,.65);">⚡ Realtime events</div>
+                <div style="font-size:11px; color:rgba(255,255,255,.65);">💳 Card-ready via partners</div>
               </div>
             </div>
           </div>
 
-          <div class="panel floating">
-            <div class="float-head">
-              <div class="float-title">Payout Activity</div>
-              <div class="float-badge">Same-day</div>
-            </div>
-            <div class="txn">
-              <div class="avatar">A</div>
-              <div>
-                <div class="t1">Employer A</div>
-                <div class="t2">Funded payroll batch</div>
+          <div class="hero-panels-row">
+            <div class="panel floating">
+              <div class="float-head">
+                <div class="float-title">Payout Activity</div>
+                <div class="float-badge">Same-day</div>
               </div>
-              <div class="amt">+$250k</div>
-            </div>
-            <div class="txn">
-              <div class="avatar">W</div>
-              <div>
-                <div class="t1">Worker payout</div>
-                <div class="t2">Local transfer delivered</div>
+              <div class="txn">
+                <div class="avatar">A</div>
+                <div>
+                  <div class="t1">Employer A</div>
+                  <div class="t2">Funded payroll batch</div>
+                </div>
+                <div class="amt">+$250k</div>
               </div>
-              <div class="amt">+$1,280</div>
-            </div>
-            <div class="txn">
-              <div class="avatar">F</div>
-              <div>
-                <div class="t1">FX / rails</div>
-                <div class="t2">Auto-route by cost</div>
+              <div class="txn">
+                <div class="avatar">W</div>
+                <div>
+                  <div class="t1">Worker payout</div>
+                  <div class="t2">Local transfer delivered</div>
+                </div>
+                <div class="amt">+$1,280</div>
               </div>
-              <div class="amt">✓</div>
+              <div class="txn">
+                <div class="avatar">F</div>
+                <div>
+                  <div class="t1">FX / rails</div>
+                  <div class="t2">Auto-route by cost</div>
+                </div>
+                <div class="amt">✓</div>
+              </div>
             </div>
-          </div>
 
-          <div class="panel floating2">
-            <div class="float-head">
-              <div class="float-title">Risk Controls</div>
-              <div class="float-badge">Enabled</div>
-            </div>
-            <div class="spark">
-              <div class="label">Velocity limits</div>
-              <div class="bar"></div>
-            </div>
-            <div class="spark">
-              <div class="label">KYB/KYC gates</div>
-              <div class="bar" style="--w:72%"></div>
-            </div>
-            <div class="spark">
-              <div class="label">Monitoring rules</div>
-              <div class="bar" style="--w:58%"></div>
+            <div class="panel floating2">
+              <div class="float-head">
+                <div class="float-title">Risk Controls</div>
+                <div class="float-badge">Enabled</div>
+              </div>
+              <div class="spark">
+                <div class="label">Velocity limits</div>
+                <div class="bar"></div>
+              </div>
+              <div class="spark">
+                <div class="label">KYB/KYC gates</div>
+                <div class="bar" style="--w:72%"></div>
+              </div>
+              <div class="spark">
+                <div class="label">Monitoring rules</div>
+                <div class="bar" style="--w:58%"></div>
+              </div>
             </div>
           </div>
         </div>
