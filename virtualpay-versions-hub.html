@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Pay — Landing Page Versions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f3f8f9;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+      --shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
+      --shadow2: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --blue:#1a5cff;
+      --navy:#0d1f3c;
+      --pill:#e8eeff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Outfit, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1100px 600px at 12% 8%, rgba(26,92,255,.10), transparent 55%),
+                  radial-gradient(900px 500px at 85% 18%, rgba(0,184,122,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:56px 20px 80px;}
+    .top{
+      display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+    h1{margin:0; font-size:32px; letter-spacing:-.6px; color:var(--navy)}
+    .sub{margin:8px 0 0; color:var(--muted); line-height:1.6; max-width:720px}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      background:rgba(255,255,255,.7);
+      border:1px solid var(--border);
+      padding:10px 12px; border-radius:999px;
+      box-shadow: var(--shadow2);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pill b{color:var(--text)}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns: repeat(2, minmax(0,1fr));}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr;}
+      h1{font-size:26px;}
+    }
+    .card{
+      background: rgba(255,255,255,.85);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow: var(--shadow2);
+      display:flex; flex-direction:column; gap:12px;
+      backdrop-filter: blur(10px);
+    }
+    .card h2{margin:0; font-size:18px; letter-spacing:-.3px;}
+    .meta{font-size:13px; color:var(--muted); line-height:1.55}
+    .tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{
+      font-size:11px; font-weight:600; letter-spacing:.3px;
+      padding:6px 10px; border-radius:999px;
+      background: var(--pill);
+      border: 1px solid rgba(26,92,255,.18);
+      color: #2647c6;
+    }
+    .tag.dark{
+      background: rgba(13,31,60,.08);
+      border:1px solid rgba(13,31,60,.12);
+      color: var(--navy);
+    }
+    .actions{display:flex; gap:10px; margin-top:4px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:13px;
+      border:1px solid var(--border);
+      color:var(--navy);
+      background:#fff;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow2); border-color: rgba(26,92,255,.30)}
+    .btn.primary{
+      background: var(--navy);
+      border-color: var(--navy);
+      color:#fff;
+    }
+    .btn.primary:hover{border-color: var(--blue); background: var(--blue)}
+    .note{
+      margin-top:18px;
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    code{background: rgba(15,23,42,.06); padding:2px 6px; border-radius:8px; color: var(--text)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>Virtual Pay — Landing Page Versions</h1>
+        <p class="sub">Open each version in a new tab and compare messaging + UI. Use this page when you present to your CEO.</p>
+      </div>
+      <div class="pill">Tip: set this file as <b>index.html</b> to make it the default homepage.</div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>V2 (current index)</h2>
+        <div class="tags">
+          <span class="tag dark">Baseline</span>
+          <span class="tag">Original layout</span>
+        </div>
+        <div class="meta">Your existing V2 build. Use as the “control” version for comparison.</div>
+        <div class="actions">
+          <a class="btn primary" href="virtualpay-landing-v2.html" target="_blank" rel="noopener">Open V2</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>V3</h2>
+        <div class="tags">
+          <span class="tag dark">CEO thesis</span>
+          <span class="tag">Named accounts</span>
+        </div>
+        <div class="meta">Earlier revision aligned to “named accounts vs pooled wallets” positioning.</div>
+        <div class="actions">
+          <a class="btn primary" href="virtualpay-landing-v3.html" target="_blank" rel="noopener">Open V3</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>V4</h2>
+        <div class="tags">
+          <span class="tag dark">Dribbble-style</span>
+          <span class="tag">No blanks</span>
+        </div>
+        <div class="meta">Premium UI refresh with filled sections and cleaner conversion flow.</div>
+        <div class="actions">
+          <a class="btn primary" href="virtualpay-landing-v4.html" target="_blank" rel="noopener">Open V4</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>V5</h2>
+        <div class="tags">
+          <span class="tag dark">Clickable CTAs</span>
+          <span class="tag">Link placeholder</span>
+        </div>
+        <div class="meta">All demo CTAs are clickable via a single placeholder link in the head.</div>
+        <div class="actions">
+          <a class="btn primary" href="virtualpay-landing-v5.html" target="_blank" rel="noopener">Open V5</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>V6</h2>
+        <div class="tags">
+          <span class="tag dark">Logo strip</span>
+          <span class="tag">Partner marks</span>
+        </div>
+        <div class="meta">Adds logo tiles + keeps Dribbble-esque visuals with CEO messaging.</div>
+        <div class="actions">
+          <a class="btn primary" href="virtualpay-landing-v6.html" target="_blank" rel="noopener">Open V6</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Optional: Make this the homepage</h2>
+        <div class="tags">
+          <span class="tag dark">GitHub/Vercel</span>
+          <span class="tag">Quick swap</span>
+        </div>
+        <div class="meta">
+          If your current homepage is <code>index.html</code> (V2), rename V2 to <code>v2.html</code> and rename this file to <code>index.html</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>Note:</b> If you’re using GitHub Pages / Vercel, place this file in the same folder as the version HTML files so the links work.
+      <br/><br/>
+      Want a “side-by-side compare” page too? I can generate one with embedded iframes for V2 vs V6.
+    </div>
+  </div>
+</body>
+</html>
