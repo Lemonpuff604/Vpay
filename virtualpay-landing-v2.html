@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Pay Solutions — Real Banking Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f2ec;
+    --cream-2: #ede9e0;
+    --white: #ffffff;
+    --navy: #0d1f3c;
+    --navy-2: #162847;
+    --blue: #1a5cff;
+    --blue-soft: #e8eeff;
+    --mint: #b8f0d8;
+    --mint-dark: #00b87a;
+    --sage: #d4ead8;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --muted-2: #9ca3af;
+    --border: #e5e0d8;
+    --border-2: #d1ccc2;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    --card-shadow-hover: 0 12px 48px rgba(0,0,0,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 64px;
+    background: rgba(245, 242, 236, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo span {
+    color: var(--blue);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 64px 80px;
+    gap: 64px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--mint);
+    color: #006644;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--mint-dark);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--navy);
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s 0.08s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    animation: fadeUp 0.5s 0.16s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.5s 0.24s ease both;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(26,92,255,0.3);
+  }
+
+  .btn-outline {
+    border: 1.5px solid var(--border-2);
+    color: var(--text);
+    padding: 13px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--navy);
+    background: var(--white);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 52px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.5s 0.32s ease both;
+  }
+
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -1px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  /* ── HERO RIGHT: Floating cards ── */
+  .hero-right {
+    position: relative;
+    height: 540px;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+
+  .float-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    padding: 22px 26px;
+    border: 1px solid var(--border);
+  }
+
+  /* Main account card */
+  .card-main {
+    top: 30px; left: 0; right: 60px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 32px;
+  }
+
+  .card-main-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+
+  .card-main-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    font-weight: 500;
+  }
+
+  .card-main-badge {
+    background: var(--mint);
+    color: #005533;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-main-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+
+  .card-main-type {
+    font-size: 12px;
+    opacity: 0.5;
+    font-weight: 300;
+  }
+
+  .card-main-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 24px;
+  }
+
+  .card-balance-label {
+    font-size: 11px;
+    opacity: 0.5;
+    margin-bottom: 4px;
+    font-weight: 300;
+  }
+
+  .card-balance {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+  .card-visa {
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 700;
+    opacity: 0.7;
+    font-family: serif;
+  }
+
+  /* Small tag card */
+  .card-tag {
+    bottom: 60px; right: 0;
+    width: 220px;
+    padding: 18px 20px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .card-tag-icon { font-size: 22px; margin-bottom: 10px; }
+  .card-tag-title { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .card-tag-sub { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* Transfer card */
+  .card-transfer {
+    bottom: 20px; left: 20px;
+    width: 230px;
+    padding: 18px 20px;
+    animation: float 4s 1.5s ease-in-out infinite;
+  }
+
+  .transfer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .transfer-dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .transfer-dot.green { background: var(--mint); }
+  .transfer-dot.blue { background: var(--blue-soft); }
+
+  .transfer-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .transfer-sub { font-size: 11px; color: var(--muted); }
+  .transfer-amount { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--mint-dark); }
+
+  .transfer-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0;
+  }
+
+  .transfer-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted-2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ── LOGOS STRIP ── */
+  .logos-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 64px;
+    background: var(--white);
+  }
+
+  .logos-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .logos-label {
+    font-size: 12px;
+    color: var(--muted-2);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .logo-items {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .logo-item {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted-2);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 64px;
+  }
+
+  .section-full {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pill-label {
+    display: inline-block;
+    background: var(--sage);
+    color: #2d5a3d;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  /* squiggly accent like the reference */
+  .pill-label.accent::after {
+    content: '✦';
+    position: absolute;
+    top: -14px;
+    right: -16px;
+    font-size: 14px;
+    color: var(--blue);
+    transform: rotate(20deg);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  /* ── PROBLEM / SOLUTION split ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .diagram-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    font-size: 14px;
+  }
+
+  .diagram-card.good {
+    background: #f0fdf8;
+    border-color: #b2ecd4;
+  }
+
+  .diagram-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin-bottom: 20px;
+  }
+
+  .tree-line {
+    line-height: 2.1;
+    font-family: 'Outfit', monospace;
+    font-size: 14px;
+  }
+
+  .tree-main { font-weight: 600; color: var(--navy); }
+  .tree-bad { color: #dc2626; }
+  .tree-good { color: var(--mint-dark); font-weight: 500; }
+  .tree-dim { color: var(--muted-2); }
+
+  .diagram-note {
+    margin-top: 20px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+  }
+
+  .diagram-note.warn {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
+
+  .diagram-note.ok {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  .problem-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .problem-points li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .point-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .point-icon.x { background: #fef2f2; color: #dc2626; }
+  .point-icon.ok { background: #f0fdf4; color: var(--mint-dark); }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .service-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card:first-child {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+  }
+
+  .service-card:first-child p { color: rgba(255,255,255,0.6); }
+  .service-card:first-child .service-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.15); }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--blue);
+  }
+
+  .service-card:first-child:hover { box-shadow: 0 16px 48px rgba(13,31,60,0.3); border-color: var(--navy); }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--blue-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .service-card:first-child .service-icon { background: rgba(255,255,255,0.1); }
+
+  .service-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .service-card:first-child h3 { color: white; }
+
+  .service-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .service-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue);
+    background: var(--blue-soft);
+    border: 1px solid #c5d4ff;
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── WHY GRID ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .why-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.2s;
+  }
+
+  .why-card:hover {
+    background: var(--white);
+    box-shadow: var(--card-shadow);
+  }
+
+  .why-card:nth-child(5) { grid-column: span 2; }
+
+  .why-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+  }
+
+  .why-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .why-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── COMPARE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+  }
+
+  .compare-table thead tr { background: var(--navy); }
+
+  .compare-table th {
+    padding: 18px 28px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .compare-table th.vp { color: var(--mint); }
+  .compare-table th:not(:first-child) { text-align: center; }
+
+  .compare-table td {
+    padding: 16px 28px;
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    color: var(--muted);
+  }
+
+  .compare-table tbody tr:nth-child(even) td { background: var(--cream); }
+  .compare-table td:first-child { color: var(--text); font-weight: 500; }
+  .compare-table td:not(:first-child) { text-align: center; }
+
+  .check { color: var(--mint-dark); font-size: 18px; font-weight: 700; }
+  .cross { color: #ef4444; font-size: 16px; }
+  .partial { font-size: 12px; color: #f59e0b; font-weight: 600; }
+
+  /* ── INDUSTRIES ── */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .ind-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    background: var(--white);
+    transition: all 0.2s;
+  }
+
+  .ind-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: rgba(26,92,255,0.2);
+  }
+
+  .ind-icon { font-size: 28px; margin-bottom: 12px; }
+  .ind-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .ind-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── TESTIMONIAL STRIP ── */
+  .testimonial-strip {
+    background: var(--navy-2);
+    border-radius: 24px;
+    padding: 48px 56px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+    align-items: center;
+    margin: 0 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testi-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint), var(--blue-soft));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    border: 3px solid rgba(255,255,255,0.1);
+  }
+
+  .testi-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .testi-name { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
+
+  .testi-stars { color: var(--mint); font-size: 14px; margin-bottom: 12px; }
+
+  /* ── FORM ── */
+  .form-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 64px;
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .form-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .form-wrap > p {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group.full { grid-column: span 2; }
+
+  .form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    appearance: none;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted-2); }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--blue);
+    background: var(--white);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: white; }
+
+  .form-btn {
+    width: 100%;
+    margin-top: 20px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.2px;
+  }
+
+  .form-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(26,92,255,0.25);
+  }
+
+  .form-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted-2);
+    margin-top: 14px;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .form-success h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--mint-dark);
+    margin-bottom: 10px;
+  }
+
+  .form-success p { color: var(--muted); font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 64px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 40px;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  .footer-logo span { color: var(--blue); }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    justify-content: center;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  .footer-right {
+    font-size: 12px;
+    color: var(--muted-2);
+    text-align: right;
+    line-height: 1.85;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 48px; min-height: auto; }
+    .hero-right { height: 360px; }
+    .card-main { right: 0; }
+    .logos-strip { padding: 24px; }
+    .logos-inner { gap: 24px; }
+    .section { padding: 64px 24px; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-card:nth-child(5) { grid-column: span 1; }
+    .industry-grid { grid-template-columns: 1fr 1fr; }
+    .testimonial-strip { grid-template-columns: 1fr; gap: 24px; padding: 36px; }
+    .form-wrap { padding: 36px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: span 1; }
+    footer { grid-template-columns: 1fr; gap: 20px; padding: 36px 24px; }
+    .footer-links { justify-content: flex-start; flex-wrap: wrap; gap: 20px; }
+    .footer-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Virtual<span>Pay</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Early Access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">FINTRAC Registered MSB · #C100000749</div>
+    <h1>Real <em>Bank Accounts.</em><br>Not Pooled Wallets.</h1>
+    <p class="hero-sub">
+      Virtual Pay gives every employer and worker their own named bank account —
+      with stablecoin rails powering instant settlement invisibly beneath a familiar banking experience.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request Early Access →</a>
+      <a href="#problem" class="btn-outline">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Segregated funds</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Settlement rails</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1</div>
+        <div class="stat-label">API integration</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Main dark account card -->
+    <div class="float-card card-main">
+      <div class="card-main-top">
+        <div>
+          <div class="card-main-label">Named Account</div>
+        </div>
+        <div class="card-main-badge">✓ Segregated</div>
+      </div>
+      <div class="card-main-name">Acme Global Ltd.</div>
+      <div class="card-main-type">Dedicated FBO Account · TD Bank</div>
+      <div class="card-main-bottom">
+        <div>
+          <div class="card-balance-label">Available Balance</div>
+          <div class="card-balance">$842,500</div>
+        </div>
+        <div class="card-visa">VISA</div>
+      </div>
+    </div>
+
+    <!-- Floating: Segregated tag -->
+    <div class="float-card card-tag">
+      <div class="card-tag-icon">🏦</div>
+      <div class="card-tag-title">Your Account. Your Name.</div>
+      <div class="card-tag-sub">Not a balance inside our account — a real account in your name.</div>
+    </div>
+
+    <!-- Floating: Recent transfer -->
+    <div class="float-card card-transfer">
+      <div class="transfer-label">Instant Settlement</div>
+      <div class="transfer-row">
+        <div class="transfer-dot green">⚡</div>
+        <div>
+          <div class="transfer-name">Maria R. · Freelancer</div>
+          <div class="transfer-sub">Named account · Mexico</div>
+        </div>
+        <div class="transfer-amount">+$4,200</div>
+      </div>
+      <div class="transfer-divider"></div>
+      <div class="transfer-row">
+        <div class="transfer-dot blue">🔒</div>
+        <div>
+          <div class="transfer-name">Stablecoin rail</div>
+          <div class="transfer-sub">Invisible to end user</div>
+        </div>
+        <div class="transfer-amount" style="color: var(--blue)">0.8s</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <div class="logos-inner">
+    <span class="logos-label">Trusted infrastructure for</span>
+    <div class="logo-items">
+      <span class="logo-item">🏢 Global Payroll</span>
+      <span class="logo-item">👷 Contractor Platforms</span>
+      <span class="logo-item">🏗️ Real Estate</span>
+      <span class="logo-item">🛒 Marketplaces</span>
+      <span class="logo-item">💎 High-Value Retail</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<div id="problem">
+  <div class="section">
+    <div class="two-col">
+      <div class="reveal">
+        <div class="pill-label">The Problem</div>
+        <h2 class="section-title">Most fintech platforms don't give you a bank account.</h2>
+        <p class="section-sub">They give you a wallet inside their account — commingled with every other client. That's platform risk.</p>
+        <ul class="problem-points">
+          <li><span class="point-icon x">✗</span> If the platform fails, your funds can be frozen</li>
+          <li><span class="point-icon x">✗</span> Commingled funds create audit and regulatory complexity</li>
+          <li><span class="point-icon x">✗</span> You own a ledger entry, not a bank account</li>
+          <li><span class="point-icon x">✗</span> CFOs carry counterparty risk they often don't know exists</li>
+        </ul>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="diagram-card">
+          <div class="diagram-card-label">Legacy Fintech Model</div>
+          <div class="tree-line">
+            <div class="tree-main">Fintech Master Account</div>
+            <div class="tree-dim">&nbsp;├── <span class="tree-bad">Client A (virtual balance)</span></div>
+            <div class="tree-dim">&nbsp;├── <span class="tree-bad">Client B (virtual balance)</span></div>
+            <div class="tree-dim">&nbsp;└── <span class="tree-bad">Client C (virtual balance)</span></div>
+          </div>
+          <div class="diagram-note warn">⚠️ Pooled funds. All clients share one account.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTION -->
+<div class="section-full">
+  <div class="section">
+    <div class="two-col">
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="diagram-card good">
+          <div class="diagram-card-label">Virtual Pay Model</div>
+          <div class="tree-line">
+            <div class="tree-main">Regulated Banking Partner</div>
+            <div class="tree-dim">&nbsp;├── <span class="tree-good">Employer Named Account</span></div>
+            <div class="tree-dim">&nbsp;├── <span class="tree-good">Worker Named Account</span></div>
+            <div class="tree-dim">&nbsp;│&nbsp;&nbsp;&nbsp; └── <span class="tree-good">Visa Debit Access</span></div>
+            <div class="tree-dim">&nbsp;└── <span class="tree-good">Freelancer Named Account</span></div>
+          </div>
+          <div class="diagram-note ok">✓ Every entity has their own account. Funds always segregated.</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="pill-label">The Solution</div>
+        <h2 class="section-title">Your money. Your name. Your account.</h2>
+        <p class="section-sub">Virtual Pay provisions dedicated bank accounts for every entity — not virtual balances, not pooled wallets. Real accounts at regulated partners.</p>
+        <ul class="problem-points">
+          <li><span class="point-icon ok">✓</span> Named accounts at regulated banking partners</li>
+          <li><span class="point-icon ok">✓</span> Stablecoin rails for instant, 24/7 cross-border settlement</li>
+          <li><span class="point-icon ok">✓</span> Visa / Mastercard debit access for workers and freelancers</li>
+          <li><span class="point-icon ok">✓</span> Clean audit trails and full regulatory transparency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services">
+  <div class="section">
+    <div style="text-align:center; margin-bottom:52px" class="reveal">
+      <div class="pill-label accent">Core Services</div>
+      <h2 class="section-title">Three infrastructure layers.<br>One platform.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🏦</div>
+        <h3>Dedicated FBO Accounts</h3>
+        <p>Every employer, employee, and freelancer receives a named bank account at a regulated partner. Not a virtual balance — a real, segregated account.</p>
+        <span class="service-tag">Named · Segregated · Regulated</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-icon">⚡</div>
+        <h3>Stablecoin Settlement</h3>
+        <p>Instant cross-border settlement and lower FX costs powered by stablecoin rails — operating invisibly beneath a standard banking experience.</p>
+        <span class="service-tag">Instant · 24/7 · Lower FX</span>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <div class="service-icon">🔌</div>
+        <h3>API-First Integration</h3>
+        <p>Connect via full API/SDK, launch with hosted checkout links, or ship the entire experience under your brand with our private label option.</p>
+        <span class="service-tag">API · SDK · Private Label</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<div class="section-full" id="why">
+  <div class="section">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-bottom:48px" class="reveal">
+      <div>
+        <div class="pill-label">Why Virtual Pay</div>
+        <h2 class="section-title">Built for CFOs who take counterparty risk seriously.</h2>
+      </div>
+      <div style="padding-top:12px">
+        <p style="font-size:16px; color:var(--muted); line-height:1.75; font-weight:300;">A single platform combining true account ownership, compliance infrastructure, and global liquidity — designed for businesses that move money at scale.</p>
+      </div>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-num">01</div>
+        <h3>True Account Ownership</h3>
+        <p>Each entity holds a named account at our regulated banking partner — not a balance on our books. Bankruptcy-remote by design.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">02</div>
+        <h3>Compliance-Forward Architecture</h3>
+        <p>Canadian MSB registered with FINTRAC. Regulatory and blockchain compliance built into every layer, with multi-jurisdiction partner coverage.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">03</div>
+        <h3>Anti-Platform Risk Design</h3>
+        <p>Segregated funds mean your clients are always protected. No commingling. No counterparty exposure to Virtual Pay's operational risk.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">04</div>
+        <h3>Invisible Crypto. Familiar UX.</h3>
+        <p>End users see standard banking — named accounts, debit cards, instant transfers. The stablecoin settlement layer is entirely transparent to them.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">05</div>
+        <h3>Deep Liquidity + Global Reach</h3>
+        <p>A network of global liquidity partners supporting high-volume execution across fiat and digital rails, with cross-border coverage built in from day one.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE -->
+<div>
+  <div class="section">
+    <div style="text-align:center; margin-bottom:48px" class="reveal">
+      <div class="pill-label">Competitive Position</div>
+      <h2 class="section-title">Legacy fintech vs. Virtual Pay</h2>
+    </div>
+    <div class="reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Legacy Fintech</th>
+            <th class="vp">Virtual Pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Named, dedicated bank accounts</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Segregated funds (bankruptcy-remote)</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Stablecoin settlement rails</td>
+            <td><span class="partial">Partial</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Instant 24/7 cross-border payments</td>
+            <td><span class="partial">Partial</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Visa / Mastercard debit for workers</td>
+            <td><span class="partial">Partial</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>API + private label deployment</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>FINTRAC MSB regulated (Canada)</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<div class="section-full" id="industries">
+  <div class="section">
+    <div style="text-align:center; margin-bottom:52px" class="reveal">
+      <div class="pill-label">Industries</div>
+      <h2 class="section-title">Built for businesses that move money at scale</h2>
+    </div>
+    <div class="industry-grid reveal">
+      <div class="ind-card">
+        <div class="ind-icon">🏢</div>
+        <h4>Global Payroll Platforms</h4>
+        <p>Give every employee a real named account. Replace pooled wallet balances with true banking infrastructure.</p>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon">👷</div>
+        <h4>Contractor & Gig Platforms</h4>
+        <p>Give freelancers their own bank account with debit access and instant cross-border payouts.</p>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon">🏗️</div>
+        <h4>Real Estate & Private Markets</h4>
+        <p>Support large-value settlement and development funding flows with full fund segregation and audit trails.</p>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon">🛒</div>
+        <h4>Marketplaces</h4>
+        <p>Hold buyer and seller funds in dedicated named accounts — eliminate platform risk from your escrow model.</p>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon">🏦</div>
+        <h4>Financial Services & FX</h4>
+        <p>Offer stablecoin settlement and programmatic conversion flows with full regulatory compliance support.</p>
+      </div>
+      <div class="ind-card">
+        <div class="ind-icon">💎</div>
+        <h4>High-Value Retail & PSPs</h4>
+        <p>Embed crypto payment acceptance or liquidity via API — expand your payer reach while staying compliant.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIAL -->
+<div style="padding: 80px 64px; background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border)">
+  <div class="testimonial-strip reveal">
+    <div class="testi-avatar">👤</div>
+    <div>
+      <div class="testi-stars">★ ★ ★ ★ ★</div>
+      <div class="testi-quote">"The first time our CFO saw that every client had their own actual bank account — not a wallet — it changed the whole conversation. That's what closed the deal."</div>
+      <div class="testi-name">Head of Finance · Global Payroll Platform &nbsp;·&nbsp; Early Partner</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div id="contact">
+  <div class="section">
+    <div class="form-wrap reveal">
+      <div class="pill-label">Get Early Access</div>
+      <h2>Let's build together.</h2>
+      <p>Tell us about your business. We'll respond within 1 business day.</p>
+
+      <div id="form-wrapper">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="f-name" placeholder="Jane Smith">
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" id="f-company" placeholder="Acme Corp">
+          </div>
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" id="f-email" placeholder="jane@acmecorp.com">
+          </div>
+          <div class="form-group">
+            <label>Industry</label>
+            <select id="f-industry">
+              <option value="" disabled selected>Select your industry</option>
+              <option>Global Payroll Platform</option>
+              <option>Contractor / Gig Platform</option>
+              <option>Marketplace</option>
+              <option>Real Estate & Private Markets</option>
+              <option>Financial Services & FX</option>
+              <option>High-Value Retail</option>
+              <option>PSP / Payment Platform</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>How can Virtual Pay help you? (optional)</label>
+            <textarea id="f-msg" placeholder="Tell us about your payment infrastructure needs..."></textarea>
+          </div>
+        </div>
+        <button class="form-btn" onclick="submitForm()">Submit Interest →</button>
+        <p class="form-note">No commitment required. Your data stays private.</p>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <h3>✓ Request received</h3>
+        <p>We'll reach out within 1 business day.<br>Questions? Email us at <strong>info@virtualpaysolutions.com</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Virtual<span>Pay</span> Solutions</div>
+  <ul class="footer-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-right">
+    virtualpaysolutions.com &nbsp;·&nbsp; info@virtualpaysolutions.com<br>
+    FINTRAC MSB Registration #C100000749<br>
+    © 2026 Virtual Pay Solutions
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+
+  function submitForm() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const company = document.getElementById('f-company').value.trim();
+    const industry = document.getElementById('f-industry').value;
+    if (!name || !email || !company || !industry) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    document.getElementById('form-wrapper').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.06)' : 'none';
+  });
+</script>
+</body>
+</html>
